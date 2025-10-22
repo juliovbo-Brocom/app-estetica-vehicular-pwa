@@ -54,6 +54,16 @@ const BRANDS = [
       { id: 'b-aroma', name: 'Aromatizante Premium', type: 'Interior', desc: 'Fragancia duradera, interior fresco.' },
     ],
   },
+    {
+    id: "fireball",
+    name: "Fireball",
+    origin: "Corea del Sur",
+    products: [
+      { id: "silla", name: "Devil’s Blood", type: "Cera Premium", desc: "Cera sintética de alto brillo y protección duradera." },
+      { id: "typhoon", name: "Typhoon Shampoo", type: "Limpieza", desc: "Shampoo neutro concentrado con espuma densa y lubricada." },
+      { id: "sincos", name: "Sincos", type: "Corrección", desc: "Compuesto abrasivo de corte medio con excelente acabado." }
+    ]
+  }
 ];
 
 const TRAININGS = [
@@ -182,38 +192,103 @@ function Tabs({ tab, setTab }) {
 }
 
 function BrandCatalog() {
-  const [q,setQ] = useState('');
-  const [favs,setFavs] = useLocal('ev.favs', []);
-  const items = useMemo(() => BRANDS.flatMap(b => b.products.map(p => ({...p, brand:b.name, origin:b.origin, brandId:b.id }))), []);
+  const [q, setQ] = useState("");
+  const [brandFilter, setBrandFilter] = useState("TODAS");
+  const [favs, setFavs] = useLocal("ev.favs", []);
+
+  // Lista de marcas para los chips de filtro
+  const brandNames = useMemo(
+    () => ["TODAS", ...BRANDS.map((b) => b.name)],
+    []
+  );
+
+  // Aplano productos con su marca
+  const items = useMemo(
+    () =>
+      BRANDS.flatMap((b) =>
+        b.products.map((p) => ({
+          ...p,
+          brand: b.name,
+          origin: b.origin,
+          brandId: b.id,
+        }))
+      ),
+    []
+  );
+
+  // Filtro por texto + marca
   const filtered = useMemo(() => {
     const t = q.trim().toLowerCase();
-    if (!t) return items;
-    return items.filter(i => (i.name+' '+i.type+' '+i.brand).toLowerCase().includes(t));
-  }, [q]);
+    return items.filter((i) => {
+      const matchText =
+        !t ||
+        (i.name + " " + i.type + " " + i.brand).toLowerCase().includes(t);
+      const matchBrand =
+        brandFilter === "TODAS" || i.brand === brandFilter;
+      return matchText && matchBrand;
+    });
+  }, [q, items, brandFilter]);
 
-  const toggle = (id) => setFavs(prev => prev.includes(id) ? prev.filter(x => x!==id) : [...prev, id]);
+  const toggleFav = (id) =>
+    setFavs((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   return (
     <div className="grid grid-1">
-      <div className="card" style={{padding:'8px 10px'}}>
-        <input placeholder="Buscar producto o marca" value={q} onChange={e=>setQ(e.target.value)} />
+      {/* Buscador */}
+      <div className="card" style={{ padding: "8px 10px" }}>
+        <input
+          placeholder="Buscar producto o marca"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+        />
       </div>
-      {filtered.map(it => (
+
+      {/* Chips de marcas */}
+      <div className="card" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {brandNames.map((bn) => {
+          const active = brandFilter === bn;
+          return (
+            <button
+              key={bn}
+              onClick={() => setBrandFilter(bn)}
+              className="btn"
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                background: active ? "#fff" : "#1b1c20",
+                color: active ? "#000" : "#e8e8ea",
+                borderColor: active ? "#fff" : "#2a2b31",
+                fontSize: 13,
+              }}
+            >
+              {bn}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Resultados */}
+      {filtered.map((it) => (
         <div className="card brand" key={it.id}>
           <div>
-            <div style={{fontWeight:600}}>{it.name} <span className="pill">{it.type}</span></div>
+            <div style={{ fontWeight: 600 }}>
+              {it.name} <span className="pill">{it.type}</span>
+            </div>
             <div className="muted">{it.brand} · {it.origin}</div>
-            <div className="muted" style={{marginTop:6}}>{it.desc}</div>
-            <div className="row" style={{gap:8, marginTop:10}}>
+            <div className="muted" style={{ marginTop: 6 }}>{it.desc}</div>
+            <div className="row" style={{ gap: 8, marginTop: 10 }}>
               <button className="btn">Ver ficha</button>
-              <button className="btn ghost" onClick={()=>toggle(it.id)}>{favs.includes(it.id)?'★ Favorito':'☆ Favorito'}</button>
+              <button className="btn ghost" onClick={() => toggleFav(it.id)}>
+                {favs.includes(it.id) ? "★ Favorito" : "☆ Favorito"}
+              </button>
             </div>
           </div>
         </div>
       ))}
     </div>
-  )
+  );
 }
+
 
 function TrainingList() {
   return (

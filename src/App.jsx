@@ -54,16 +54,73 @@ const BRANDS = [
       { id: 'b-aroma', name: 'Aromatizante Premium', type: 'Interior', desc: 'Fragancia duradera, interior fresco.' },
     ],
   },
+   {
+  id: "fireball",
+  name: "Fireball",
+  origin: "Corea del Sur",
+  tagline: "Coatings cerámicos y acabados premium",
+  products: [
+    // ===== CERÁMICOS (pintura / llantas / vidrio) =====
     {
-    id: "fireball",
-    name: "Fireball",
-    origin: "Corea del Sur",
-    products: [
-      { id: "silla", name: "Devil’s Blood", type: "Cera Premium", desc: "Cera sintética de alto brillo y protección duradera." },
-      { id: "typhoon", name: "Typhoon Shampoo", type: "Limpieza", desc: "Shampoo neutro concentrado con espuma densa y lubricada." },
-      { id: "sincos", name: "Sincos", type: "Corrección", desc: "Compuesto abrasivo de corte medio con excelente acabado." }
-    ]
-  }
+      id: "fb-aegis",
+      name: "Aegis Ceramic Coating",
+      type: "Cerámico",
+      surface: "Pintura",
+      desc: "Revestimiento cerámico de alta durabilidad y gran resistencia química. Brillo profundo y alta repelencia.",
+      img: "/brands/fireball/aegis.png"
+    },
+    {
+      id: "fb-dokdo",
+      name: "Dok Do (2 capas)",
+      type: "Cerámico",
+      surface: "Pintura",
+      desc: "Sistema de doble capa para protección extendida y dureza superior. Ideal para acabados profesionales.",
+      img: "/brands/fireball/dokdo.png"
+    },
+    {
+      id: "fb-quartz",
+      name: "Quartz Coating",
+      type: "Cerámico",
+      surface: "Pintura",
+      desc: "Coating cerámico versátil con excelente brillo y facilidad de mantenimiento. Gran relación rendimiento/uso.",
+      img: "/brands/fireball/quartz.png"
+    },
+    {
+      id: "fb-talon",
+      name: "Talon (Wheels & Calipers)",
+      type: "Cerámico",
+      surface: "Llantas",
+      desc: "Cerámico específico para llantas y pinzas, resistente a altas temperaturas y polvo de freno.",
+      img: "/brands/fireball/talon.png"
+    },
+    {
+      id: "fb-glass",
+      name: "Glass Coating",
+      type: "Cerámico",
+      surface: "Vidrio",
+      desc: "Revestimiento para parabrisas y cristales. Mejora la visibilidad bajo lluvia con fuerte efecto hidrofóbico.",
+      img: "/brands/fireball/glass.png"
+    },
+
+    // ===== CERAS (paste/híbridas) =====
+    {
+      id: "fb-devilsblood",
+      name: "Devil’s Blood",
+      type: "Cera",
+      surface: "Pintura",
+      desc: "Cera/sellador híbrido de alto brillo y profundidad visual. Excelente beading y tacto suave.",
+      img: "/brands/fireball/devils-blood.png"
+    },
+    {
+      id: "fb-carnauba",
+      name: "Carnauba Paste Wax",
+      type: "Cera",
+      surface: "Pintura",
+      desc: "Cera premium a base de carnauba para un acabado cálido tipo show-car.",
+      img: "/brands/fireball/carnauba.png"
+    }
+  ]
+}
 ];
 
 const TRAININGS = [

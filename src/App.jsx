@@ -449,7 +449,90 @@ function BottomNav({ tab, setTab }) {
     </div>
   )
 }
+// --- Install Banner (PWA) ---
+function isStandalone() {
+  const mq = window.matchMedia?.("(display-mode: standalone)")?.matches;
+  const iosStandalone = window.navigator.standalone === true;
+  return mq || iosStandalone;
+}
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+function InstallBanner() {
+  const [visible, setVisible] = React.useState(false);
+  const [deferred, setDeferred] = React.useState(null);
 
+  React.useEffect(() => {
+    if (isStandalone()) return;
+    const dismissedAt = Number(localStorage.getItem("ev.install.dismissedAt") || 0);
+    if (Date.now() - dismissedAt < 7 * 24 * 60 * 60 * 1000) return;
+
+    const onBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferred(e);
+      setVisible(true);
+    };
+
+    if (isIOS()) setVisible(true);
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+  }, []);
+
+  const close = () => {
+    setVisible(false);
+    localStorage.setItem("ev.install.dismissedAt", String(Date.now()));
+  };
+  const onInstallClick = async () => {
+    if (deferred) {
+      await deferred.prompt();
+      await deferred.userChoice;
+      setDeferred(null);
+      close();
+    }
+  };
+
+  if (!visible) return null;
+
+  const box = {
+    position: "fixed", left: 12, right: 12, bottom: 12, zIndex: 60,
+    background: "#111418", color: "#fff", border: "1px solid #2a2b31",
+    borderRadius: 14, padding: 12, boxShadow: "0 8px 30px rgba(0,0,0,.35)"
+  };
+  const btn = {
+    borderRadius: 10, padding: "8px 12px", border: "1px solid #2a2b31",
+    background: "#fff", color: "#000", cursor: "pointer", fontSize: 14
+  };
+  const btnGhost = { ...btn, background: "transparent", color: "#e8e8ea" };
+
+  return (
+    <div style={box}>
+      <div style={{display:"flex", justifyContent:"space-between", gap:8, alignItems:"center"}}>
+        <div style={{fontWeight:600}}>Instalá la App de Brocom</div>
+        <button onClick={close} style={{...btnGhost, padding:"4px 8px"}}>✕</button>
+      </div>
+      {!isIOS() ? (
+        <>
+          <div style={{margin:"6px 0 10px"}}>
+            Agregala a tu pantalla de inicio para acceso rápido y uso sin barra del navegador.
+          </div>
+          <div style={{display:"flex", gap:8}}>
+            <button onClick={onInstallClick} style={btn}>📲 Instalar</button>
+            <button onClick={close} style={btnGhost}>Ahora no</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div style={{margin:"6px 0 10px"}}>
+            En Safari, tocá <b>Compartir</b> → <b>Agregar a pantalla de inicio</b>.
+          </div>
+          <div style={{display:"flex", gap:8}}>
+            <button onClick={close} style={btn}>Entendido</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 export default function App() {
   const [tab,setTab] = useLocal('ev.tab','brands');
   return (

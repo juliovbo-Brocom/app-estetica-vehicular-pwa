@@ -225,7 +225,16 @@ function Hero() {
     <div className="hero">
       <div className="hero-ink"></div>
       <div className="hero-inner">
-        <h1>Todo tu mundo de Estética Vehicular en un solo lugar</h1>
+        <h1 style={{
+  fontSize: "1.6rem",
+  textAlign: "center",
+  fontWeight: 700,
+  marginTop: "1rem",
+  marginBottom: "0.8rem",
+  letterSpacing: "0.02em"
+}}>
+  Tu lugar de Estética Vehicular
+</h1>
         <div className="muted">Catálogo · Talleres · Consultas · Links</div>
       </div>
     </div>
@@ -294,10 +303,24 @@ function BrandCatalog() {
       {/* Buscador */}
       <div className="card" style={{ padding: "8px 10px" }}>
         <input
-          placeholder="Buscar producto o marca"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
+  placeholder="Buscar producto o marca..."
+  value={q}
+  onChange={(e) => setQ(e.target.value)}
+  style={{
+    width: "100%",
+    maxWidth: "480px",
+    display: "block",
+    margin: "0 auto 16px auto",
+    padding: "12px 16px",
+    borderRadius: "12px",
+    border: "1px solid #2c2c2f",
+    background: "#1a1a1d",
+    color: "#fff",
+    fontSize: "1rem",
+    outline: "none",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+  }}
+/>
       </div>
 
       {/* Chips de marcas */}
@@ -434,20 +457,45 @@ function LinksHub() {
 
 function BottomNav({ tab, setTab }) {
   const items = [
-    { id:'brands', label:'Marcas' },
-    { id:'training', label:'Capacita' },
-    { id:'ask', label:'Consulta' },
-    { id:'links', label:'Links' },
+    { id: "brands", label: "Marcas" },
+    { id: "training", label: "Capacitaciones" },
+    { id: "ask", label: "Consultas" },
+    { id: "links", label: "Links" },
   ];
+
   return (
-    <div className="bottomnav">
-      <div className="bottomnav-inner">
-        {items.map(i => (
-          <div key={i.id} className={'bn-item '+(tab===i.id?'active':'')} onClick={()=>setTab(i.id)}>{i.label}</div>
-        ))}
-      </div>
-    </div>
-  )
+    <nav
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+        gap: "10px",
+        maxWidth: "420px",
+        margin: "24px auto 40px auto",
+        padding: "0 12px",
+      }}
+    >
+      {items.map((item) => (
+        <button
+          key={item.id}
+          onClick={() => setTab(item.id)}
+          style={{
+            padding: "12px 10px",
+            borderRadius: "10px",
+            background: tab === item.id ? "#ffffff" : "#1f1f22",
+            color: tab === item.id ? "#000000" : "#ffffff",
+            border: "1px solid #2a2b31",
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            cursor: "pointer",
+            transition: "all 0.2s ease-in-out",
+            boxShadow: tab === item.id ? "0 2px 6px rgba(255,255,255,0.1)" : "0 2px 4px rgba(0,0,0,0.3)",
+          }}
+        >
+          {item.label}
+        </button>
+      ))}
+    </nav>
+  );
 }
 // --- Install Banner (PWA) ---
 function isStandalone() {

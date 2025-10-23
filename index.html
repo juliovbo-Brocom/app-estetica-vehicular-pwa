@@ -1,55 +1,43 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111111">
-    <link rel="manifest" href="/manifest.webmanifest?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="/brocom-icon-192.png">
-    <title>App Estética Vehicular - Brocom</title>
-    <style>
-      :root { --bg:#0f0f10; --card:#17181a; --txt:#e8e8ea; --muted:#a5a5ab; --brand:#ffffff; --accent:#19a0ff; }
-      * { box-sizing: border-box; }
-      html, body, #root { height: 100%; }
-      body { margin: 0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; background: var(--bg); color: var(--txt); }
-      .container { max-width: 860px; margin: 0 auto; padding: 12px 16px 90px; }
-      .header { position: sticky; top:0; backdrop-filter: blur(6px); background: rgba(15,15,16,.7); border-bottom: 1px solid #232428; z-index:9; }
-      .header-inner { display:flex; align-items:center; justify-content: space-between; padding: 12px 16px; max-width: 860px; margin: 0 auto; }
-      .logo { display:flex; align-items:center; gap:10px; }
-      .logo-badge { width:34px; height:34px; border-radius:10px; background:#000; display:grid; place-items:center; font-weight:700; }
-      .muted { color: var(--muted); font-size: 12px; }
-      .badge { font-size: 12px; color:#000; background:#fff; border-radius:999px; padding: 4px 10px; }
-      .hero { border-radius: 16px; overflow:hidden; background: linear-gradient(135deg, #1b1c20 0%, #101114 100%); position:relative; }
-      .hero-ink { position:absolute; inset:0; opacity:.2; background:
-        radial-gradient(circle at 20% 20%, #fff 0%, transparent 40%),
-        radial-gradient(circle at 80% 30%, #fff 0%, transparent 45%),
-        radial-gradient(circle at 50% 80%, #fff 0%, transparent 40%);
-      }
-      .hero-inner { padding: 20px; height: 180px; display:flex; flex-direction:column; justify-content:end; }
-      h1 { margin: 0; font-size: 22px; }
-      .tabs { display: grid; grid-template-columns: repeat(4,1fr); gap:6px; margin: 10px 0 16px; }
-      .tab { background:#1b1c20; border: 1px solid #24262c; color:#e8e8ea; border-radius: 12px; padding:10px; text-align:center; font-size:13px; cursor:pointer; }
-      .tab.active { background:#fff; color:#000; }
-      .card { background: var(--card); border:1px solid #222328; border-radius: 14px; padding: 12px; }
-      .row { display:flex; align-items:center; gap:8px; }
-      .grid { display:grid; gap:10px; }
-      .grid-1 { grid-template-columns: 1fr; }
-      .btn { border-radius: 10px; padding: 8px 12px; border:1px solid #2a2b31; background:#1b1c20; color:#e8e8ea; cursor:pointer; font-size: 14px; }
-      .btn.primary { background:#fff; color:#000; border-color:#fff; }
-      .btn.ghost { background:transparent; }
-      input, textarea { width:100%; background:#111; border:1px solid #2a2b31; color:#e8e8ea; border-radius:10px; padding:10px; }
-      textarea { min-height: 140px; }
-      .brand { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-      .pill { font-size: 11px; color:#000; background:#fff; border-radius:999px; padding:2px 8px; }
-      .footer { text-align:center; color:var(--muted); font-size:12px; padding: 36px 0; }
-      .bottomnav { position:fixed; bottom:0; left:0; right:0; border-top:1px solid #232428; background: rgba(17,18,20,.9); backdrop-filter: blur(8px); }
-      .bottomnav-inner { max-width:860px; margin:0 auto; display:grid; grid-template-columns: repeat(4,1fr); }
-      .bn-item { padding:10px 8px; text-align:center; font-size:12px; color:#a5a5ab; cursor:pointer; }
-      .bn-item.active { color:#fff; font-weight:600; }
-      a { color: #7dc3ff; text-decoration: none; }
-      a:hover { text-decoration: underline; }
-    </style>
-  </head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Brocom Estética Vehicular — Productos premium, capacitación y tecnología profesional para el cuidado automotor." />
+
+  <title>Estética Vehicular Brocom</title>
+
+  <!-- 🟢 PWA manifest (Android / Chrome) -->
+  <link rel="manifest" href="/manifest.webmanifest?v=3">
+
+  <!-- 🍏 iOS (icono y ajustes de pantalla completa) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/brocom-icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Brocom EV" />
+
+  <!-- 💻 Favicon adaptativo (para escritorio y pestañas) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/brocom-icon-192.png" />
+  <link rel="shortcut icon" href="/brocom-icon-192.png" />
+  <link rel="mask-icon" href="/brocom-icon-512.png" color="#000000" />
+
+  <!-- 📱 Social sharing (Open Graph / WhatsApp / Instagram / Facebook) -->
+  <meta property="og:title" content="Estética Vehicular Brocom" />
+  <meta property="og:description" content="Productos, capacitaciones y tecnología profesional para el cuidado automotor." />
+  <meta property="og:image" content="/brocom-icon-512.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://app-estetica-vehicular-pwa.vercel.app/" />
+
+  <!-- 🐦 Twitter Card (por si se comparte en X/Twitter) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Estética Vehicular Brocom" />
+  <meta name="twitter:description" content="Productos, capacitaciones y tecnología profesional para el cuidado automotor." />
+  <meta name="twitter:image" content="/brocom-icon-512.png" />
+
+  <!-- Optional: hoja de estilos o fuentes -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

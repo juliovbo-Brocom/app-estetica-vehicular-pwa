@@ -1,20 +1,22 @@
 {
-  "name": "Estética Vehicular",
-  "short_name": "EV",
+  "name": "Estética Vehicular Brocom",
+  "short_name": "Brocom EV",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f0f10",
-  "theme_color": "#111111",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/icons/icon-192.png",
+      "src": "/brocom-icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "/brocom-icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
